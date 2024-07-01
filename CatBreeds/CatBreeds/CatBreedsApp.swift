@@ -6,6 +6,8 @@
 //
 
 import Network
+import Storage
+import SwiftData
 import SwiftUI
 
 @main
@@ -15,6 +17,8 @@ struct CatBreedsApp: App {
         apiKey: Config.apiKey,
         urlSession: .shared
     )
+
+    @State var storage = Storage()
 
     var body: some Scene {
         WindowGroup {
@@ -26,12 +30,13 @@ struct CatBreedsApp: App {
                     Label("Breeds", systemImage: "cat")
                 }
 
-                FavouritesView(client: client)
+                FavouritesView(client: client, storage: storage)
                     .tabItem {
                         Label("Favourites", systemImage: "heart")
                     }
             }
         }
+        .modelContainer(storage.container)
     }
 }
 

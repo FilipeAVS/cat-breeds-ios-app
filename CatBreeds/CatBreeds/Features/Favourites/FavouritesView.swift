@@ -6,13 +6,14 @@
 //
 
 import Network
+import Storage
 import SwiftUI
 
 struct FavouritesView: View {
     @StateObject private var viewModel: FavouritesViewModel
 
-    init(client: Client) {
-        self._viewModel = StateObject(wrappedValue: FavouritesViewModel(client: client))
+    init(client: Client, storage: Storage) {
+        self._viewModel = StateObject(wrappedValue: FavouritesViewModel(client: client, storage: storage))
     }
 
     private var columns: [GridItem] {
