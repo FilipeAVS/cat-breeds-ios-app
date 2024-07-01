@@ -12,7 +12,7 @@ import SwiftUI
 
 @MainActor
 final class BreedsViewModel: ObservableObject {
-    private let client: Client
+    let client: Client
     private var currentPage: Int = 0
 
     @Published private var catBreeds: [CatBreed] = []

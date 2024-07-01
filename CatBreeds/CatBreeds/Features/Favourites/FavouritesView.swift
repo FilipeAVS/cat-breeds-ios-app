@@ -28,7 +28,7 @@ struct FavouritesView: View {
                     Text("No favourite breeds found.")
                 } else {
                     ScrollView {
-                        LazyVGrid(columns: columns) {
+                        LazyVGrid(columns: columns, spacing: 16) {
                             ForEach(viewModel.breeds) { breed in
                                 VStack {
                                     AsyncImage(url: breed.image?.url) { image in
@@ -44,26 +44,29 @@ struct FavouritesView: View {
                                     }
                                     .frame(width: 80, height: 80)
                                     .clipShape(RoundedRectangle(cornerRadius: 16))
+                                    .overlay(alignment: .topTrailing) {
+                                        let favouriteBreed = viewModel.favouriteBreeds.first(where: { $0.imageId == breed.referenceImageId })
+
+                                        Button(
+                                            action: {
+                                                Task {
+                                                    if let favouriteBreed {
+                                                        await viewModel.removeFromFavourites(favouriteBreed: favouriteBreed)
+                                                    }
+                                                }
+                                            }
+                                        ) {
+                                            Image(systemName: favouriteBreed == nil ? "heart" : "heart.fill")
+                                        }
+                                        .tint(.red)
+                                        .padding([.top, .trailing], 4)
+                                    }
 
                                     Text(breed.name)
                                         .frame(maxWidth: .infinity)
+                                        .foregroundStyle(.black)
 
                                     Spacer()
-                                }
-                                .overlay(alignment: .topTrailing) {
-                                    let favouriteBreed = viewModel.favouriteBreeds.first(where: { $0.imageId == breed.referenceImageId })
-
-                                    Button(action: {
-                                        Task {
-                                            if let favouriteBreed {
-                                                await viewModel.removeFromFavourites(favouriteBreed: favouriteBreed)
-                                            }
-                                        }
-                                    }) {
-                                        Image(systemName: "heart.fill")
-                                            .foregroundColor(.red)
-                                            .font(.title)
-                                    }
                                 }
                                 .task {
                                     if breed == viewModel.breeds.last {
