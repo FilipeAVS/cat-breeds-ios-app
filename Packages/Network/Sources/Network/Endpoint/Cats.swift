@@ -63,4 +63,8 @@ public struct MarkBreedAsFavouriteBody: Encodable {
 
 public struct MarkBreedAsFavouriteResult: Decodable {
     public let id: Int
+
+    public init(id: Int) {
+        self.id = id
+    }
 }

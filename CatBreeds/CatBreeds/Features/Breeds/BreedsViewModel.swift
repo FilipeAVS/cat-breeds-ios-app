@@ -12,7 +12,7 @@ import SwiftUI
 
 @MainActor
 final class BreedsViewModel: ObservableObject {
-    let client: Client
+    let client: ClientType
     private var currentPage: Int = 0
 
     @Published private var catBreeds: [CatBreed] = []
@@ -31,7 +31,7 @@ final class BreedsViewModel: ObservableObject {
         }
     }
 
-    init(client: Client) {
+    init(client: ClientType) {
         self.client = client
 
         Task {

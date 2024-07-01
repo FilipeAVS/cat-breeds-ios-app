@@ -10,21 +10,23 @@ import SwiftUI
 
 struct DetailsView: View {
     @StateObject private var viewModel: DetailsViewModel
+    private var catBreed: CatBreed
     @State private var isLoading = false
 
-    init(catBreed: CatBreed, client: Client) {
-        self._viewModel = StateObject(wrappedValue: DetailsViewModel(catBreed: catBreed, client: client))
+    init(catBreed: CatBreed, client: ClientType) {
+        self._viewModel = StateObject(wrappedValue: DetailsViewModel(client: client))
+        self.catBreed = catBreed
     }
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                AsyncImage(url: viewModel.catBreed.image?.url) { image in
+                AsyncImage(url: catBreed.image?.url) { image in
                     image
                         .resizable()
                         .scaledToFill()
                 } placeholder: {
-                    if viewModel.catBreed.image?.url == nil {
+                    if catBreed.image?.url == nil {
                         Color.gray
                     } else {
                         ProgressView()
@@ -33,7 +35,8 @@ struct DetailsView: View {
                 .clipShape(RoundedRectangle(cornerRadius: 16))
                 .frame(maxWidth: .infinity)
                 .overlay(alignment: .topTrailing) {
-                    let favouriteId = viewModel.favouriteBreeds.first(where: { $0.imageId == viewModel.catBreed.referenceImageId })?.favouriteId
+                    let favouriteId = viewModel.favouriteBreeds
+                        .first(where: { $0.imageId == catBreed.referenceImageId })?.favouriteId
 
                     Button(
                         action: {
@@ -42,7 +45,7 @@ struct DetailsView: View {
                                 if let favouriteId {
                                     await viewModel.removeFromFavourites(favouriteId: favouriteId)
                                 } else {
-                                    await viewModel.markAsFavourite(breed: viewModel.catBreed)
+                                    await viewModel.markAsFavourite(breed: catBreed)
                                 }
                                 isLoading = false
                             }
@@ -58,21 +61,30 @@ struct DetailsView: View {
                     .disabled(isLoading)
                 }
 
-                Text(viewModel.catBreed.origin)
+                Text(catBreed.origin)
                     .font(.headline)
                     .padding(.top, 16)
 
-                Text(viewModel.catBreed.temperament)
+                Text(catBreed.temperament)
                     .font(.subheadline)
 
-                Text(viewModel.catBreed.description)
+                Text(catBreed.description)
                     .padding(.top, 8)
             }
             .padding()
         }
-        .navigationTitle(viewModel.catBreed.name)
+        .navigationTitle(catBreed.name)
         .task {
             await viewModel.loadFavouriteBreeds()
         }
+        .alert(
+            "Something went wrong",
+            isPresented: $viewModel.showAlert,
+            actions: {
+                Button("OK", role: .cancel) {}
+            }, message: {
+                Text(viewModel.errorMessage ?? "")
+            }
+        )
     }
 }

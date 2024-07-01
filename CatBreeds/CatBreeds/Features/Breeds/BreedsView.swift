@@ -11,7 +11,7 @@ import SwiftUI
 struct BreedsView: View {
     @StateObject private var viewModel: BreedsViewModel
 
-    init(client: Client) {
+    init(client: ClientType) {
         self._viewModel = StateObject(wrappedValue: BreedsViewModel(client: client))
     }
 

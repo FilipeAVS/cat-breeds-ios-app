@@ -7,7 +7,14 @@
 
 import Foundation
 
-@Observable public final class Client {
+public protocol ClientType {
+    func get<T: Decodable>(endpoint: Endpoint) async throws -> T
+    func post<T: Decodable>(endpoint: Endpoint) async throws -> T
+    func post(endpoint: Endpoint) async throws
+    func delete(endpoint: Endpoint) async throws
+}
+
+@Observable public final class Client: ClientType {
     public enum ClientError: Error {
         case unexpectedRequest
         case unexpectedResponse

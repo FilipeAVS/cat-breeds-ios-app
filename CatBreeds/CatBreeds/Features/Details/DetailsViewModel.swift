@@ -10,13 +10,14 @@ import SwiftUI
 
 @MainActor
 final class DetailsViewModel: ObservableObject {
-    private let client: Client
-    let catBreed: CatBreed
+    private let client: ClientType
 
     @Published private(set) var favouriteBreeds: [(imageId: String, favouriteId: Int)] = []
 
-    init(catBreed: CatBreed, client: Client) {
-        self.catBreed = catBreed
+    @Published var showAlert: Bool = false
+    @Published private(set) var errorMessage: String?
+
+    init(client: ClientType) {
         self.client = client
     }
 
@@ -34,7 +35,10 @@ final class DetailsViewModel: ObservableObject {
             let result: MarkBreedAsFavouriteResult = try await client.post(endpoint: Cats.markBreedAsFavourite(json: body))
 
             favouriteBreeds.append((imageId, result.id))
-        } catch {}
+        } catch {
+            errorMessage = "Failed to mark breed as favourite. Please try again"
+            showAlert = true
+        }
     }
 
     func removeFromFavourites(favouriteId: Int) async {
@@ -42,6 +46,9 @@ final class DetailsViewModel: ObservableObject {
             try await client.delete(endpoint: Cats.removeBreedFromFavourites(favouriteId: favouriteId))
 
             favouriteBreeds.removeAll(where: { $0.favouriteId == favouriteId })
-        } catch {}
+        } catch {
+            errorMessage = "Failed to remove breed from favourites. Please try again"
+            showAlert = true
+        }
     }
 }

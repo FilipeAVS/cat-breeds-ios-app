@@ -11,8 +11,8 @@ import SwiftUI
 
 @MainActor
 final class FavouritesViewModel: ObservableObject {
-    private let client: Client
-    private let storage: Storage
+    private let client: ClientType
+    private let storage: StorageType
     private var currentPage: Int = 0
 
     @Published private var catBreeds: [CatBreed] = []
@@ -23,7 +23,7 @@ final class FavouritesViewModel: ObservableObject {
         catBreeds.filter { breed in favouriteBreeds.contains(where: { $0.imageId == breed.referenceImageId }) }
     }
 
-    init(client: Client, storage: Storage) {
+    init(client: ClientType, storage: StorageType) {
         self.client = client
         self.storage = storage
     }

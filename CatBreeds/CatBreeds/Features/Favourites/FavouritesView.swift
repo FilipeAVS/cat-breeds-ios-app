@@ -12,7 +12,7 @@ import SwiftUI
 struct FavouritesView: View {
     @StateObject private var viewModel: FavouritesViewModel
 
-    init(client: Client, storage: Storage) {
+    init(client: ClientType, storage: StorageType) {
         self._viewModel = StateObject(wrappedValue: FavouritesViewModel(client: client, storage: storage))
     }
 

@@ -12,13 +12,13 @@ import SwiftUI
 
 @main
 struct CatBreedsApp: App {
-    @State var client = Client(
+    @State var client: ClientType = Client(
         apiHost: "api.thecatapi.com",
         apiKey: Config.apiKey,
         urlSession: .shared
     )
 
-    @State var storage = Storage()
+    @State var storage: StorageType = Storage()
 
     var body: some Scene {
         WindowGroup {

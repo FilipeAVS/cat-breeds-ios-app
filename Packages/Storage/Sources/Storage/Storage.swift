@@ -8,7 +8,14 @@
 import Foundation
 import SwiftData
 
-@Observable public class Storage {
+public protocol StorageType {
+    var container: ModelContainer { get }
+
+    func insert(_ favouriteBreeds: [LocalFavouriteBreed])
+    func retrieveFavouriteBreeds() -> [LocalFavouriteBreed]
+}
+
+@Observable public class Storage: StorageType {
     public let container: ModelContainer
     private let context: ModelContext
 

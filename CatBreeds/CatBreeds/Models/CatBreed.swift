@@ -22,6 +22,10 @@ struct CatBreed: Decodable, Identifiable, Equatable {
 struct BreedImage: Decodable, Equatable {
     let url: URL
 
+    init(url: URL) {
+        self.url = url
+    }
+
     init(from local: LocalBreedImage) {
         url = local.url
     }
@@ -35,6 +39,12 @@ struct FavouriteBreed: Decodable {
     let id: Int
     let imageId: String
     let image: BreedImage?
+
+    init(id: Int, imageId: String, image: BreedImage?) {
+        self.id = id
+        self.imageId = imageId
+        self.image = image
+    }
 
     init(from local: LocalFavouriteBreed) {
         id = local.id
