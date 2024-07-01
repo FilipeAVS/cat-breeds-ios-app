@@ -9,32 +9,23 @@ import Foundation
 import Network
 
 final class ClientSpy: ClientType {
-    enum Message: Hashable {
-        case get(path: String)
-        case post(path: String)
-        case delete(path: String)
-    }
-
-    private(set) var messages = Set<Message>()
-
-    var getResult: Result<Decodable, Error> = .failure(anyError())
+    var getResults = ThreadSafeResult<Decodable>()
     func get<T: Decodable>(endpoint: Endpoint) async throws -> T {
-        messages.insert(.get(path: endpoint.path))
-        return try getResult.get() as! T
+        return try getResults.popLast()?.get() as! T
     }
 
-    var postDecodableResult: Result<Decodable, Error> = .failure(anyError())
+    var postDecodableResults = ThreadSafeResult<Decodable>()
     func post<T: Decodable>(endpoint: Endpoint) async throws -> T {
-        return try postDecodableResult.get() as! T
+        return try postDecodableResults.popLast()?.get() as! T
     }
 
-    var postVoidResult: Result<Void, Error> = .failure(anyError())
+    var postVoidResults = ThreadSafeResult<Void>()
     func post(endpoint: Endpoint) async throws {
-        try postVoidResult.get()
+        try postVoidResults.popLast()?.get()
     }
 
-    var deleteResult: Result<Void, Error> = .failure(anyError())
+    var deleteResults = ThreadSafeResult<Void>()
     func delete(endpoint: Endpoint) async throws {
-        try deleteResult.get()
+        try deleteResults.popLast()?.get()
     }
 }

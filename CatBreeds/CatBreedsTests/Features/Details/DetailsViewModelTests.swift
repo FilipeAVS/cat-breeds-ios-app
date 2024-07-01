@@ -34,7 +34,7 @@ final class DetailsViewModelTests: XCTestCase {
     @MainActor
     func test_loadFavouriteBreeds_withSuccess_loadsFavouriteBreeds() async {
         let sut = makeSut()
-        sut.client.getResult = .success([favouriteBreed])
+        sut.client.getResults.append(.success([favouriteBreed]))
 
         XCTAssertTrue(sut.viewModel.favouriteBreeds.isEmpty)
 
@@ -47,7 +47,8 @@ final class DetailsViewModelTests: XCTestCase {
     @MainActor
     func test_loadFavouriteBreeds_withFailure_favouriteBreedsEmpty() async {
         let sut = makeSut()
-        sut.client.getResult = .failure(anyError())
+
+        sut.client.getResults.append(.failure(anyError()))
 
         XCTAssertTrue(sut.viewModel.favouriteBreeds.isEmpty)
 
@@ -64,13 +65,13 @@ final class DetailsViewModelTests: XCTestCase {
 
         XCTAssertTrue(sut.viewModel.favouriteBreeds.isEmpty)
 
-        sut.client.postDecodableResult = .success(markAsFavouriteResult)
+        sut.client.postDecodableResults.append(.success(markAsFavouriteResult))
         await sut.viewModel.markAsFavourite(breed: catBreed)
 
         XCTAssertEqual(sut.viewModel.favouriteBreeds.first?.favouriteId, id)
         XCTAssertEqual(sut.viewModel.favouriteBreeds.first?.imageId, catBreed.referenceImageId)
 
-        sut.client.deleteResult = .success(())
+        sut.client.deleteResults.append(.success(()))
         await sut.viewModel.removeFromFavourites(favouriteId: id)
 
         XCTAssertTrue(sut.viewModel.favouriteBreeds.isEmpty)
@@ -80,7 +81,7 @@ final class DetailsViewModelTests: XCTestCase {
     func test_markAsFavourite_withFailure_showsAlert() async {
         let sut = makeSut()
 
-        sut.client.postDecodableResult = .failure(anyError())
+        sut.client.postDecodableResults.append(.failure(anyError()))
         await sut.viewModel.markAsFavourite(breed: catBreed)
 
         XCTAssertTrue(sut.viewModel.showAlert)
@@ -92,7 +93,7 @@ final class DetailsViewModelTests: XCTestCase {
         let sut = makeSut()
         let favouriteId = 1
 
-        sut.client.postDecodableResult = .failure(anyError())
+        sut.client.deleteResults.append(.failure(anyError()))
         await sut.viewModel.removeFromFavourites(favouriteId: favouriteId)
 
         XCTAssertTrue(sut.viewModel.showAlert)

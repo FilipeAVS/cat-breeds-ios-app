@@ -5,31 +5,78 @@
 //  Created by Filipe Santos on 01/07/2024.
 //
 
+@testable import CatBreeds
+import Network
+import Storage
 import XCTest
 
 final class FavouritesViewModelTests: XCTestCase {
+    private let imageId: String = "imageId"
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    var catBreed1: CatBreed {
+        makeCatBreed(referenceImageId: imageId)
     }
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    var catBreed2: CatBreed {
+        makeCatBreed(referenceImageId: "\(imageId)_2")
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    var favouriteBreed: FavouriteBreed {
+        FavouriteBreed(
+            id: 1,
+            imageId: imageId,
+            image: nil
+        )
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    @MainActor
+    func test_loadBreeds_withSuccess_updatesCatBreeds_andUpdatesFavouriteBreeds() async {
+        let sut = makeSUT()
+        sut.client.getResults.append(.success([catBreed1, catBreed2]))
+        sut.client.getResults.append(.success([favouriteBreed]))
+
+        XCTAssertTrue(sut.viewModel.isLoading)
+        XCTAssertTrue(sut.viewModel.breeds.isEmpty)
+
+        await sut.viewModel.loadBreeds()
+
+        XCTAssertEqual(sut.viewModel.breeds, [catBreed1])
+        XCTAssertFalse(sut.viewModel.isLoading)
     }
 
+    // MARK: Helpers
+
+    @MainActor
+    private func makeSUT() -> SystemUnderTest {
+        let client = ClientSpy()
+        let storage = StorageSpy()
+        return SystemUnderTest(
+            viewModel: FavouritesViewModel(client: client, storage: storage),
+            client: client,
+            storage: storage
+        )
+    }
+
+    private struct SystemUnderTest {
+        let viewModel: FavouritesViewModel
+        let client: ClientSpy
+        let storage: StorageSpy
+    }
+}
+
+extension XCTestCase {
+    func makeCatBreed(
+        referenceImageId: String? = "referenceImageId"
+    ) -> CatBreed {
+        CatBreed(
+            id: "id",
+            name: "name",
+            origin: "origin",
+            temperament: "temperament",
+            description: "description",
+            referenceImageId: referenceImageId,
+            lifeSpan: "lifeSpan",
+            image: nil
+        )
+    }
 }
