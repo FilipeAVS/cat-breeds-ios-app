@@ -10,6 +10,7 @@ import SwiftUI
 
 struct DetailsView: View {
     @StateObject private var viewModel: DetailsViewModel
+    @State private var isLoading = false
 
     init(catBreed: CatBreed, client: Client) {
         self._viewModel = StateObject(wrappedValue: DetailsViewModel(catBreed: catBreed, client: client))
@@ -36,18 +37,25 @@ struct DetailsView: View {
 
                     Button(
                         action: {
+                            isLoading = true
                             Task {
                                 if let favouriteId {
                                     await viewModel.removeFromFavourites(favouriteId: favouriteId)
                                 } else {
                                     await viewModel.markAsFavourite(breed: viewModel.catBreed)
                                 }
+                                isLoading = false
                             }
                         }
                     ) {
-                        Image(systemName: favouriteId == nil ? "heart" : "heart.fill")
+                        if isLoading {
+                            ProgressView()
+                        } else {
+                            Image(systemName: favouriteId == nil ? "heart" : "heart.fill")
+                        }
                     }
                     .tint(.red)
+                    .disabled(isLoading)
                 }
 
                 Text(viewModel.catBreed.origin)

@@ -30,44 +30,12 @@ struct FavouritesView: View {
                     ScrollView {
                         LazyVGrid(columns: columns, spacing: 16) {
                             ForEach(viewModel.breeds) { breed in
-                                VStack {
-                                    AsyncImage(url: breed.image?.url) { image in
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                    } placeholder: {
-                                        if breed.image?.url == nil {
-                                            Color.gray
-                                        } else {
-                                            ProgressView()
-                                        }
-                                    }
-                                    .frame(width: 80, height: 80)
-                                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                                    .overlay(alignment: .topTrailing) {
-                                        let favouriteBreed = viewModel.favouriteBreeds.first(where: { $0.imageId == breed.referenceImageId })
-
-                                        Button(
-                                            action: {
-                                                Task {
-                                                    if let favouriteBreed {
-                                                        await viewModel.removeFromFavourites(favouriteBreed: favouriteBreed)
-                                                    }
-                                                }
-                                            }
-                                        ) {
-                                            Image(systemName: favouriteBreed == nil ? "heart" : "heart.fill")
-                                        }
-                                        .tint(.red)
-                                        .padding([.top, .trailing], 4)
-                                    }
-
-                                    Text(breed.name)
-                                        .frame(maxWidth: .infinity)
-                                        .foregroundStyle(.black)
-
-                                    Spacer()
-                                }
+                                CatBreedGridItemView(
+                                    catBreed: breed,
+                                    favouriteBreed: viewModel.favouriteBreeds.first(where: { $0.imageId == breed.referenceImageId }),
+                                    markAsFavourite: { _ in },
+                                    removeFromFavourites: viewModel.removeFromFavourites
+                                )
                                 .task {
                                     if breed == viewModel.breeds.last {
                                         await viewModel.loadMoreBreeds()

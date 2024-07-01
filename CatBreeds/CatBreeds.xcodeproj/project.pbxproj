@@ -20,6 +20,7 @@
 		0ECC9AEC2C32F35B00E11E65 /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC9AEB2C32F35B00E11E65 /* FavouritesViewModel.swift */; };
 		0ECC9AEF2C32F47E00E11E65 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC9AEE2C32F47E00E11E65 /* DetailsView.swift */; };
 		0ECC9AF12C32F58300E11E65 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC9AF02C32F58300E11E65 /* DetailsViewModel.swift */; };
+		0ECC9AF42C32FD0400E11E65 /* CatBreedGridItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC9AF32C32FD0400E11E65 /* CatBreedGridItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,7 @@
 		0ECC9AEB2C32F35B00E11E65 /* FavouritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewModel.swift; sourceTree = "<group>"; };
 		0ECC9AEE2C32F47E00E11E65 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		0ECC9AF02C32F58300E11E65 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
+		0ECC9AF32C32FD0400E11E65 /* CatBreedGridItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatBreedGridItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,13 +74,14 @@
 		0E9078B42C32D48800D024F5 /* CatBreeds */ = {
 			isa = PBXGroup;
 			children = (
-				0ECC9AE32C32E8A600E11E65 /* Models */,
-				0ECC9ADC2C32E75900E11E65 /* Features */,
 				0ECC9ADB2C32E4B600E11E65 /* Info.plist */,
 				0E9078B52C32D48800D024F5 /* CatBreedsApp.swift */,
 				0E9078B92C32D48A00D024F5 /* Assets.xcassets */,
 				0ECC9AD92C32E49C00E11E65 /* Config.xcconfig */,
+				0ECC9ADC2C32E75900E11E65 /* Features */,
+				0ECC9AE32C32E8A600E11E65 /* Models */,
 				0E9078BB2C32D48A00D024F5 /* Preview Content */,
+				0ECC9AF22C32FCF900E11E65 /* Views */,
 			);
 			path = CatBreeds;
 			sourceTree = "<group>";
@@ -134,6 +137,14 @@
 				0ECC9AF02C32F58300E11E65 /* DetailsViewModel.swift */,
 			);
 			path = Details;
+			sourceTree = "<group>";
+		};
+		0ECC9AF22C32FCF900E11E65 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0ECC9AF32C32FD0400E11E65 /* CatBreedGridItemView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,6 +231,7 @@
 				0ECC9AEA2C32F1F500E11E65 /* BreedsViewModel.swift in Sources */,
 				0ECC9AF12C32F58300E11E65 /* DetailsViewModel.swift in Sources */,
 				0ECC9AEC2C32F35B00E11E65 /* FavouritesViewModel.swift in Sources */,
+				0ECC9AF42C32FD0400E11E65 /* CatBreedGridItemView.swift in Sources */,
 				0ECC9AE02C32E77400E11E65 /* FavouritesView.swift in Sources */,
 				0E9078B62C32D48800D024F5 /* CatBreedsApp.swift in Sources */,
 				0ECC9AE22C32E77C00E11E65 /* BreedsView.swift in Sources */,

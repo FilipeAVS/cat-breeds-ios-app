@@ -27,46 +27,12 @@ struct BreedsView: View {
                         NavigationLink {
                             DetailsView(catBreed: breed, client: viewModel.client)
                         } label: {
-                            VStack {
-                                AsyncImage(url: breed.image?.url) { image in
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                } placeholder: {
-                                    if breed.image?.url == nil {
-                                        Color.gray
-                                    } else {
-                                        ProgressView()
-                                    }
-                                }
-                                .frame(width: 80, height: 80)
-                                .clipShape(RoundedRectangle(cornerRadius: 16))
-                                .overlay(alignment: .topTrailing) {
-                                    let favouriteBreed = viewModel.favouriteBreeds.first(where: { $0.imageId == breed.referenceImageId })
-
-                                    Button(
-                                        action: {
-                                            Task {
-                                                if let favouriteBreed {
-                                                    await viewModel.removeFromFavourites(favouriteBreed: favouriteBreed)
-                                                } else {
-                                                    await viewModel.markAsFavourite(breed: breed)
-                                                }
-                                            }
-                                        }
-                                    ) {
-                                        Image(systemName: favouriteBreed == nil ? "heart" : "heart.fill")
-                                    }
-                                    .tint(.red)
-                                    .padding([.top, .trailing], 4)
-                                }
-
-                                Text(breed.name)
-                                    .frame(maxWidth: .infinity)
-                                    .foregroundStyle(.black)
-
-                                Spacer()
-                            }
+                            CatBreedGridItemView(
+                                catBreed: breed,
+                                favouriteBreed: viewModel.favouriteBreeds.first(where: { $0.imageId == breed.referenceImageId }),
+                                markAsFavourite: viewModel.markAsFavourite,
+                                removeFromFavourites: viewModel.removeFromFavourites
+                            )
                         }
                         .task {
                             if breed == viewModel.breeds.last {
