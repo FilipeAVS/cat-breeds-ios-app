@@ -17,6 +17,7 @@
 		0ECC9AE52C32E8AE00E11E65 /* CatBreed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC9AE42C32E8AE00E11E65 /* CatBreed.swift */; };
 		0ECC9AE82C32EB0200E11E65 /* AsyncAlgorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 0ECC9AE72C32EB0200E11E65 /* AsyncAlgorithms */; };
 		0ECC9AEA2C32F1F500E11E65 /* BreedsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC9AE92C32F1F500E11E65 /* BreedsViewModel.swift */; };
+		0ECC9AEC2C32F35B00E11E65 /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC9AEB2C32F35B00E11E65 /* FavouritesViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		0ECC9AE12C32E77C00E11E65 /* BreedsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsView.swift; sourceTree = "<group>"; };
 		0ECC9AE42C32E8AE00E11E65 /* CatBreed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatBreed.swift; sourceTree = "<group>"; };
 		0ECC9AE92C32F1F500E11E65 /* BreedsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BreedsViewModel.swift; sourceTree = "<group>"; };
+		0ECC9AEB2C32F35B00E11E65 /* FavouritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				0ECC9ADF2C32E77400E11E65 /* FavouritesView.swift */,
+				0ECC9AEB2C32F35B00E11E65 /* FavouritesViewModel.swift */,
 			);
 			path = Favourites;
 			sourceTree = "<group>";
@@ -200,6 +203,7 @@
 			files = (
 				0ECC9AE52C32E8AE00E11E65 /* CatBreed.swift in Sources */,
 				0ECC9AEA2C32F1F500E11E65 /* BreedsViewModel.swift in Sources */,
+				0ECC9AEC2C32F35B00E11E65 /* FavouritesViewModel.swift in Sources */,
 				0ECC9AE02C32E77400E11E65 /* FavouritesView.swift in Sources */,
 				0E9078B62C32D48800D024F5 /* CatBreedsApp.swift in Sources */,
 				0ECC9AE22C32E77C00E11E65 /* BreedsView.swift in Sources */,
