@@ -22,6 +22,7 @@
 		0ECC9AF12C32F58300E11E65 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC9AF02C32F58300E11E65 /* DetailsViewModel.swift */; };
 		0ECC9AF42C32FD0400E11E65 /* CatBreedGridItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ECC9AF32C32FD0400E11E65 /* CatBreedGridItemView.swift */; };
 		0ECC9AFB2C33001500E11E65 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 0ECC9AFA2C33001500E11E65 /* Storage */; };
+		0ECC9AFE2C330AD200E11E65 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 0ECC9AFD2C330AD200E11E65 /* Storage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,7 +41,6 @@
 		0ECC9AEE2C32F47E00E11E65 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		0ECC9AF02C32F58300E11E65 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
 		0ECC9AF32C32FD0400E11E65 /* CatBreedGridItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatBreedGridItemView.swift; sourceTree = "<group>"; };
-		0ECC9AF82C32FF2300E11E65 /* Storage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Storage; path = "../../cat-breeds/CatBreeds/Packages/Storage"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ECC9AFE2C330AD200E11E65 /* Storage in Frameworks */,
 				0ECC9AFB2C33001500E11E65 /* Storage in Frameworks */,
 				0ECC9AD82C32E42A00E11E65 /* Network in Frameworks */,
 				0ECC9AE82C32EB0200E11E65 /* AsyncAlgorithms in Frameworks */,
@@ -60,7 +61,6 @@
 		0E9078A92C32D48800D024F5 = {
 			isa = PBXGroup;
 			children = (
-				0ECC9AF82C32FF2300E11E65 /* Storage */,
 				0E9078C42C32D4F500D024F5 /* Network */,
 				0E9078B42C32D48800D024F5 /* CatBreeds */,
 				0E9078B32C32D48800D024F5 /* Products */,
@@ -171,6 +171,7 @@
 				0ECC9AD72C32E42A00E11E65 /* Network */,
 				0ECC9AE72C32EB0200E11E65 /* AsyncAlgorithms */,
 				0ECC9AFA2C33001500E11E65 /* Storage */,
+				0ECC9AFD2C330AD200E11E65 /* Storage */,
 			);
 			productName = CatBreeds;
 			productReference = 0E9078B22C32D48800D024F5 /* CatBreeds.app */;
@@ -203,7 +204,7 @@
 			packageReferences = (
 				0ECC9AD62C32E42A00E11E65 /* XCLocalSwiftPackageReference "Packages/Network" */,
 				0ECC9AE62C32EB0200E11E65 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
-				0ECC9AF92C33001500E11E65 /* XCLocalSwiftPackageReference "Packages/Storage" */,
+				0ECC9AFC2C330AD200E11E65 /* XCLocalSwiftPackageReference "Packages/Storage" */,
 			);
 			productRefGroup = 0E9078B32C32D48800D024F5 /* Products */;
 			projectDirPath = "";
@@ -456,7 +457,7 @@
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Network;
 		};
-		0ECC9AF92C33001500E11E65 /* XCLocalSwiftPackageReference "Packages/Storage" */ = {
+		0ECC9AFC2C330AD200E11E65 /* XCLocalSwiftPackageReference "Packages/Storage" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Storage;
 		};
@@ -484,6 +485,10 @@
 			productName = AsyncAlgorithms;
 		};
 		0ECC9AFA2C33001500E11E65 /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Storage;
+		};
+		0ECC9AFD2C330AD200E11E65 /* Storage */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Storage;
 		};
