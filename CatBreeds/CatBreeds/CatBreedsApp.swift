@@ -18,7 +18,19 @@ struct CatBreedsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TabView {
+                NavigationView {
+                    BreedsView(client: client)
+                }
+                .tabItem {
+                    Label("Breeds", systemImage: "cat")
+                }
+
+                FavouritesView(client: client)
+                    .tabItem {
+                        Label("Favourites", systemImage: "heart")
+                    }
+            }
         }
     }
 }
