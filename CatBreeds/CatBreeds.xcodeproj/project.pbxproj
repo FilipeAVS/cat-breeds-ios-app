@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E2E9C882C3315B700166AFE /* Network in Frameworks */ = {isa = PBXBuildFile; productRef = 0E2E9C872C3315B700166AFE /* Network */; };
+		0E2E9C8B2C3315CC00166AFE /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = 0E2E9C8A2C3315CC00166AFE /* Storage */; };
 		0E9078B62C32D48800D024F5 /* CatBreedsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E9078B52C32D48800D024F5 /* CatBreedsApp.swift */; };
 		0E9078BA2C32D48A00D024F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E9078B92C32D48A00D024F5 /* Assets.xcassets */; };
 		0E9078BD2C32D48A00D024F5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E9078BC2C32D48A00D024F5 /* Preview Assets.xcassets */; };
@@ -26,11 +28,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E52027D2C3315660052D734 /* Network */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Network; path = ../Packages/Network; sourceTree = "<group>"; };
+		0E52027E2C33156C0052D734 /* Storage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Storage; path = ../Packages/Storage; sourceTree = "<group>"; };
 		0E9078B22C32D48800D024F5 /* CatBreeds.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatBreeds.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E9078B52C32D48800D024F5 /* CatBreedsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatBreedsApp.swift; sourceTree = "<group>"; };
 		0E9078B92C32D48A00D024F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E9078BC2C32D48A00D024F5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		0E9078C42C32D4F500D024F5 /* Network */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Network; path = Packages/Network; sourceTree = "<group>"; };
 		0ECC9AD92C32E49C00E11E65 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		0ECC9ADB2C32E4B600E11E65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0ECC9ADF2C32E77400E11E65 /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
@@ -48,10 +51,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E2E9C8B2C3315CC00166AFE /* Storage in Frameworks */,
 				0ECC9AFE2C330AD200E11E65 /* Storage in Frameworks */,
 				0ECC9AFB2C33001500E11E65 /* Storage in Frameworks */,
 				0ECC9AD82C32E42A00E11E65 /* Network in Frameworks */,
 				0ECC9AE82C32EB0200E11E65 /* AsyncAlgorithms in Frameworks */,
+				0E2E9C882C3315B700166AFE /* Network in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,7 +66,8 @@
 		0E9078A92C32D48800D024F5 = {
 			isa = PBXGroup;
 			children = (
-				0E9078C42C32D4F500D024F5 /* Network */,
+				0E52027E2C33156C0052D734 /* Storage */,
+				0E52027D2C3315660052D734 /* Network */,
 				0E9078B42C32D48800D024F5 /* CatBreeds */,
 				0E9078B32C32D48800D024F5 /* Products */,
 			);
@@ -172,6 +178,8 @@
 				0ECC9AE72C32EB0200E11E65 /* AsyncAlgorithms */,
 				0ECC9AFA2C33001500E11E65 /* Storage */,
 				0ECC9AFD2C330AD200E11E65 /* Storage */,
+				0E2E9C872C3315B700166AFE /* Network */,
+				0E2E9C8A2C3315CC00166AFE /* Storage */,
 			);
 			productName = CatBreeds;
 			productReference = 0E9078B22C32D48800D024F5 /* CatBreeds.app */;
@@ -202,9 +210,9 @@
 			);
 			mainGroup = 0E9078A92C32D48800D024F5;
 			packageReferences = (
-				0ECC9AD62C32E42A00E11E65 /* XCLocalSwiftPackageReference "Packages/Network" */,
 				0ECC9AE62C32EB0200E11E65 /* XCRemoteSwiftPackageReference "swift-async-algorithms" */,
-				0ECC9AFC2C330AD200E11E65 /* XCLocalSwiftPackageReference "Packages/Storage" */,
+				0E2E9C862C3315B700166AFE /* XCLocalSwiftPackageReference "../Packages/Network" */,
+				0E2E9C892C3315CC00166AFE /* XCLocalSwiftPackageReference "../Packages/Storage" */,
 			);
 			productRefGroup = 0E9078B32C32D48800D024F5 /* Products */;
 			projectDirPath = "";
@@ -453,13 +461,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		0ECC9AD62C32E42A00E11E65 /* XCLocalSwiftPackageReference "Packages/Network" */ = {
+		0E2E9C862C3315B700166AFE /* XCLocalSwiftPackageReference "../Packages/Network" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/Network;
+			relativePath = ../Packages/Network;
 		};
-		0ECC9AFC2C330AD200E11E65 /* XCLocalSwiftPackageReference "Packages/Storage" */ = {
+		0E2E9C892C3315CC00166AFE /* XCLocalSwiftPackageReference "../Packages/Storage" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/Storage;
+			relativePath = ../Packages/Storage;
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -475,6 +483,14 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0E2E9C872C3315B700166AFE /* Network */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Network;
+		};
+		0E2E9C8A2C3315CC00166AFE /* Storage */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Storage;
+		};
 		0ECC9AD72C32E42A00E11E65 /* Network */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Network;
