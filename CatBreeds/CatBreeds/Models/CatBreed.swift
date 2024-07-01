@@ -21,3 +21,9 @@ struct CatBreed: Decodable, Identifiable, Equatable {
 struct BreedImage: Decodable, Equatable {
     let url: URL
 }
+
+struct FavouriteBreed: Decodable {
+    let id: Int
+    let imageId: String
+    let image: BreedImage?
+}

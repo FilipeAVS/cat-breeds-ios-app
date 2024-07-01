@@ -60,3 +60,7 @@ public struct MarkBreedAsFavouriteBody: Encodable {
         self.imageId = imageId
     }
 }
+
+public struct MarkBreedAsFavouriteResult: Decodable {
+    public let id: Int
+}

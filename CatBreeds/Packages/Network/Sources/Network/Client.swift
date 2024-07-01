@@ -34,6 +34,12 @@ import Foundation
         return try await makeRequest(endpoint: endpoint, method: "POST")
     }
 
+    public func post(endpoint: Endpoint) async throws {
+        let url = try makeUrl(for: endpoint)
+        let request = makeUrlRequest(url: url, endpoint: endpoint, httpMethod: "POST")
+        _ = try await urlSession.data(for: request)
+    }
+
     public func delete(endpoint: Endpoint) async throws {
         let url = try makeUrl(for: endpoint)
         let request = makeUrlRequest(url: url, endpoint: endpoint, httpMethod: "DELETE")
@@ -72,6 +78,7 @@ import Foundation
 
         if let body = endpoint.bodyValue {
             let encoder = JSONEncoder()
+            encoder.keyEncodingStrategy = .convertToSnakeCase
             do {
                 let jsonData = try encoder.encode(body)
                 request.httpBody = jsonData
