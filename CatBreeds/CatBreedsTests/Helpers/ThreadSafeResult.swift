@@ -11,7 +11,7 @@ final class ThreadSafeResult<T> {
     private let queue = DispatchQueue(label: "ThreadSafeQueue")
     private var results: [Result<T, Error>] = []
 
-    func popLast() -> Result<T, Error>? {
+    func removeLast() -> Result<T, Error>? {
         queue.sync {
             results.removeLast()
         }

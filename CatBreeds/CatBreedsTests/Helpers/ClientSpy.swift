@@ -11,21 +11,21 @@ import Network
 final class ClientSpy: ClientType {
     var getResults = ThreadSafeResult<Decodable>()
     func get<T: Decodable>(endpoint: Endpoint) async throws -> T {
-        return try getResults.popLast()?.get() as! T
+        return try getResults.removeLast()?.get() as! T
     }
 
     var postDecodableResults = ThreadSafeResult<Decodable>()
     func post<T: Decodable>(endpoint: Endpoint) async throws -> T {
-        return try postDecodableResults.popLast()?.get() as! T
+        return try postDecodableResults.removeLast()?.get() as! T
     }
 
     var postVoidResults = ThreadSafeResult<Void>()
     func post(endpoint: Endpoint) async throws {
-        try postVoidResults.popLast()?.get()
+        try postVoidResults.removeLast()?.get()
     }
 
     var deleteResults = ThreadSafeResult<Void>()
     func delete(endpoint: Endpoint) async throws {
-        try deleteResults.popLast()?.get()
+        try deleteResults.removeLast()?.get()
     }
 }

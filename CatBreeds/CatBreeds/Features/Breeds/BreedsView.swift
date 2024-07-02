@@ -21,27 +21,33 @@ struct BreedsView: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(viewModel.breeds) { breed in
-                        NavigationLink {
-                            DetailsView(catBreed: breed, client: viewModel.client)
-                        } label: {
-                            CatBreedGridItemView(
-                                catBreed: breed,
-                                favouriteBreed: viewModel.favouriteBreeds.first(where: { $0.imageId == breed.referenceImageId }),
-                                markAsFavourite: viewModel.markAsFavourite,
-                                removeFromFavourites: viewModel.removeFromFavourites
-                            )
-                        }
-                        .task {
-                            if breed == viewModel.breeds.last {
-                                await viewModel.loadMoreBreeds()
+            VStack {
+                if viewModel.isLoading {
+                    ProgressView()
+                } else {
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: 16) {
+                            ForEach(viewModel.breeds) { breed in
+                                NavigationLink {
+                                    DetailsView(catBreed: breed, client: viewModel.client)
+                                } label: {
+                                    CatBreedGridItemView(
+                                        catBreed: breed,
+                                        favouriteBreed: viewModel.favouriteBreeds.first(where: { $0.imageId == breed.referenceImageId }),
+                                        markAsFavourite: viewModel.markAsFavourite,
+                                        removeFromFavourites: viewModel.removeFromFavourites
+                                    )
+                                }
+                                .task {
+                                    if breed == viewModel.breeds.last {
+                                        await viewModel.loadMoreBreeds()
+                                    }
+                                }
                             }
                         }
+                        .padding()
                     }
                 }
-                .padding()
             }
             .task {
                 await viewModel.loadBreeds()

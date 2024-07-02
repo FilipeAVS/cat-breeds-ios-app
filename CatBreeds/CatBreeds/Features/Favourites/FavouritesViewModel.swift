@@ -84,7 +84,7 @@ final class FavouritesViewModel: ObservableObject {
             self.favouriteBreeds = favouriteBreeds
         } catch {}
 
-        if catBreeds.count < favouriteBreeds.count {
+        if breeds.count < favouriteBreeds.count {
             await loadMoreBreeds()
         }
     }

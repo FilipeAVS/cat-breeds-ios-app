@@ -16,10 +16,11 @@ final class BreedsViewModel: ObservableObject {
     private var currentPage: Int = 0
 
     @Published private var catBreeds: [CatBreed] = []
+    @Published private(set) var isLoading = true
     @Published private(set) var favouriteBreeds: [FavouriteBreed] = []
 
     @Published var search: String = ""
-    @Published private var searchedCatBreeds: [CatBreed] = []
+    @Published private var searchCatBreeds: [CatBreed] = []
 
     private var tasks = Set<AnyCancellable>()
 
@@ -27,7 +28,7 @@ final class BreedsViewModel: ObservableObject {
         if search.isEmpty {
             catBreeds
         } else {
-            searchedCatBreeds
+            searchCatBreeds
         }
     }
 
@@ -42,7 +43,7 @@ final class BreedsViewModel: ObservableObject {
     }
 
     func loadBreeds() async {
-        guard currentPage == 0 else {
+        guard isLoading else {
             do {
                 favouriteBreeds = try await client.get(endpoint: Cats.favouriteBreeds)
             } catch {}
@@ -58,31 +59,21 @@ final class BreedsViewModel: ObservableObject {
             self.catBreeds = catBreeds
             self.favouriteBreeds = favouriteBreeds
         } catch {}
+
+        isLoading = false
     }
 
     func loadMoreBreeds() async {
         currentPage += 1
 
         do {
-            async let catBreedsRequest: [CatBreed] = client.get(endpoint: Cats.breeds(page: currentPage))
-            async let favouriteBreedsRequest: [FavouriteBreed] = client.get(endpoint: Cats.favouriteBreeds)
-
-            let (catBreeds, favouriteBreeds) = try await (catBreedsRequest, favouriteBreedsRequest)
-
-            self.catBreeds += catBreeds
-            self.favouriteBreeds = favouriteBreeds
+            catBreeds += try await client.get(endpoint: Cats.breeds(page: currentPage))
         } catch {}
     }
 
-    func searchBreeds(with term: String) async {
+    private func searchBreeds(with searchTerm: String) async {
         do {
-            async let catBreedsRequest: [CatBreed] = client.get(endpoint: Cats.searchBreeds(searchTerm: term))
-            async let favouriteBreedsRequest: [FavouriteBreed] = client.get(endpoint: Cats.favouriteBreeds)
-
-            let (catBreeds, favouriteBreeds) = try await (catBreedsRequest, favouriteBreedsRequest)
-
-            searchedCatBreeds = catBreeds
-            self.favouriteBreeds = favouriteBreeds
+            searchCatBreeds = try await client.get(endpoint: Cats.searchBreeds(searchTerm: searchTerm))
         } catch {}
     }
 
