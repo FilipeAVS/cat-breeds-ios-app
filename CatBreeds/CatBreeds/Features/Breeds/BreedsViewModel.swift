@@ -76,7 +76,7 @@ final class BreedsViewModel: ObservableObject {
 
     func searchBreeds(with term: String) async {
         do {
-            async let catBreedsRequest: [CatBreed] = client.get(endpoint: Cats.breeds(page: currentPage))
+            async let catBreedsRequest: [CatBreed] = client.get(endpoint: Cats.searchBreeds(searchTerm: term))
             async let favouriteBreedsRequest: [FavouriteBreed] = client.get(endpoint: Cats.favouriteBreeds)
 
             let (catBreeds, favouriteBreeds) = try await (catBreedsRequest, favouriteBreedsRequest)
