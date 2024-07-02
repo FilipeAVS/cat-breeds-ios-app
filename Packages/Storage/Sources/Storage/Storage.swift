@@ -22,10 +22,10 @@ public protocol StorageType {
     public let container: ModelContainer
     private let context: ModelContext
 
-    public init() {
+    public init(context: ModelContext? = nil) {
         do {
             self.container = try ModelContainer(for: LocalFavouriteBreed.self, LocalCatBreed.self, LocalBreedImage.self)
-            self.context = ModelContext(container)
+            self.context = context ?? ModelContext(container)
         } catch {
             fatalError("Failed to create model container.")
         }

@@ -61,6 +61,8 @@
 		0E9078B52C32D48800D024F5 /* CatBreedsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatBreedsApp.swift; sourceTree = "<group>"; };
 		0E9078B92C32D48A00D024F5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E9078BC2C32D48A00D024F5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0EB676652C344A4D00C06D14 /* Storage.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Storage.xctestplan; path = ../Packages/Storage/Tests/Storage.xctestplan; sourceTree = "<group>"; };
+		0EB676662C344B0E00C06D14 /* Network.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = Network.xctestplan; path = ../Packages/Network/Tests/Network.xctestplan; sourceTree = "<group>"; };
 		0ECC9AD92C32E49C00E11E65 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		0ECC9ADB2C32E4B600E11E65 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		0ECC9ADF2C32E77400E11E65 /* FavouritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesView.swift; sourceTree = "<group>"; };
@@ -152,6 +154,8 @@
 		0E9078A92C32D48800D024F5 = {
 			isa = PBXGroup;
 			children = (
+				0EB676662C344B0E00C06D14 /* Network.xctestplan */,
+				0EB676652C344A4D00C06D14 /* Storage.xctestplan */,
 				0E52027E2C33156C0052D734 /* Storage */,
 				0E52027D2C3315660052D734 /* Network */,
 				0E9078B42C32D48800D024F5 /* CatBreeds */,

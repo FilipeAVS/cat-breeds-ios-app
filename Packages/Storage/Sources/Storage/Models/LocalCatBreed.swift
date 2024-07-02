@@ -2,7 +2,7 @@
 //  LocalCatBreed.swift
 //
 //
-//  Created by Filipe Santos on 01/07/2024.
+//  Created by Filipe Santos on 02/07/2024.
 //
 
 import Foundation
@@ -40,27 +40,5 @@ public final class LocalCatBreed {
         self.lifeSpan = lifeSpan
         self.page = page
         self.image = image
-    }
-}
-
-@Model
-public final class LocalFavouriteBreed {
-    @Attribute(.unique) public let id: Int
-    public let imageId: String
-    @Relationship() public var image: LocalBreedImage?
-
-    public init(id: Int, imageId: String, image: LocalBreedImage?) {
-        self.id = id
-        self.imageId = imageId
-        self.image = image
-    }
-}
-
-@Model
-public final class LocalBreedImage {
-    public let url: URL
-
-    public init(url: URL) {
-        self.url = url
     }
 }
