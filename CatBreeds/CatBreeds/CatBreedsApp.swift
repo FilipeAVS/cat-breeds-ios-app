@@ -24,7 +24,7 @@ struct CatBreedsApp: App {
         WindowGroup {
             TabView {
                 NavigationView {
-                    BreedsView(client: client)
+                    BreedsView(client: client, storage: storage)
                 }
                 .tabItem {
                     Label("Breeds", systemImage: "cat")

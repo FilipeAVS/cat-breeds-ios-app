@@ -6,13 +6,14 @@
 //
 
 import Network
+import Storage
 import SwiftUI
 
 struct BreedsView: View {
     @StateObject private var viewModel: BreedsViewModel
 
-    init(client: ClientType) {
-        self._viewModel = StateObject(wrappedValue: BreedsViewModel(client: client))
+    init(client: ClientType, storage: StorageType) {
+        self._viewModel = StateObject(wrappedValue: BreedsViewModel(client: client, storage: storage))
     }
 
     private var columns: [GridItem] {
@@ -54,6 +55,15 @@ struct BreedsView: View {
             }
             .navigationTitle("Breeds")
             .searchable(text: $viewModel.search)
+            .alert(
+                "Something went wrong",
+                isPresented: $viewModel.showAlert,
+                actions: {
+                    Button("OK", role: .cancel) {}
+                }, message: {
+                    Text(viewModel.errorMessage ?? "")
+                }
+            )
         }
     }
 }

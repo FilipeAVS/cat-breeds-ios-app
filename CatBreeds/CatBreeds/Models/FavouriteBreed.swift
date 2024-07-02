@@ -8,7 +8,7 @@
 import Foundation
 import Storage
 
-struct FavouriteBreed: Decodable {
+struct FavouriteBreed: Decodable, Equatable {
     let id: Int
     let imageId: String
     let image: BreedImage?

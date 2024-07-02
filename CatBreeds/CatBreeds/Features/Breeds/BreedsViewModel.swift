@@ -8,11 +8,13 @@
 import AsyncAlgorithms
 import Combine
 import Network
+import Storage
 import SwiftUI
 
 @MainActor
 final class BreedsViewModel: ObservableObject {
     let client: ClientType
+    private let storage: StorageType
     private var currentPage: Int = 0
 
     @Published private var catBreeds: [CatBreed] = []
@@ -21,6 +23,9 @@ final class BreedsViewModel: ObservableObject {
 
     @Published var search: String = ""
     @Published private var searchCatBreeds: [CatBreed] = []
+
+    @Published var showAlert: Bool = false
+    @Published private(set) var errorMessage: String?
 
     private var tasks = Set<AnyCancellable>()
 
@@ -32,8 +37,9 @@ final class BreedsViewModel: ObservableObject {
         }
     }
 
-    init(client: ClientType) {
+    init(client: ClientType, storage: StorageType) {
         self.client = client
+        self.storage = storage
 
         Task {
             for await searchQuery in $search.values.debounce(for: .milliseconds(300), clock: .continuous) {
@@ -46,6 +52,7 @@ final class BreedsViewModel: ObservableObject {
         guard isLoading else {
             do {
                 favouriteBreeds = try await client.get(endpoint: Cats.favouriteBreeds)
+                storage.insertFavouriteBreeds(favouriteBreeds.map(\.local))
             } catch {}
             return
         }
@@ -56,9 +63,15 @@ final class BreedsViewModel: ObservableObject {
 
             let (catBreeds, favouriteBreeds) = try await (catBreedsRequest, favouriteBreedsRequest)
 
+            storage.insertCatBreeds(catBreeds.map { $0.mapToLocal(with: currentPage) })
+            storage.insertFavouriteBreeds(favouriteBreeds.map(\.local))
+
             self.catBreeds = catBreeds
             self.favouriteBreeds = favouriteBreeds
-        } catch {}
+        } catch {
+            catBreeds = storage.retrieveCatBreeds(from: currentPage).map(CatBreed.init)
+            favouriteBreeds = storage.retrieveFavouriteBreeds().map(FavouriteBreed.init)
+        }
 
         isLoading = false
     }
@@ -67,13 +80,18 @@ final class BreedsViewModel: ObservableObject {
         currentPage += 1
 
         do {
-            catBreeds += try await client.get(endpoint: Cats.breeds(page: currentPage))
-        } catch {}
+            let catBreeds: [CatBreed] = try await client.get(endpoint: Cats.breeds(page: currentPage))
+            storage.insertCatBreeds(catBreeds.map { $0.mapToLocal(with: currentPage) })
+            self.catBreeds += catBreeds
+        } catch {
+            catBreeds += storage.retrieveCatBreeds(from: currentPage).map(CatBreed.init)
+        }
     }
 
     private func searchBreeds(with searchTerm: String) async {
         do {
             searchCatBreeds = try await client.get(endpoint: Cats.searchBreeds(searchTerm: searchTerm))
+            storage.insertCatBreeds(catBreeds.map { $0.mapToLocal(with: currentPage) })
         } catch {}
     }
 
@@ -83,7 +101,11 @@ final class BreedsViewModel: ObservableObject {
             try await client.post(endpoint: Cats.markBreedAsFavourite(json: body))
 
             favouriteBreeds = try await client.get(endpoint: Cats.favouriteBreeds)
-        } catch {}
+            storage.insertFavouriteBreeds(favouriteBreeds.map(\.local))
+        } catch {
+            errorMessage = "Failed to mark breed as favourite. Please try again"
+            showAlert = true
+        }
     }
 
     func removeFromFavourites(favouriteBreed: FavouriteBreed) async {
@@ -91,7 +113,11 @@ final class BreedsViewModel: ObservableObject {
             try await client.delete(endpoint: Cats.removeBreedFromFavourites(favouriteId: favouriteBreed.id))
 
             favouriteBreeds = try await client.get(endpoint: Cats.favouriteBreeds)
-        } catch {}
+            storage.insertFavouriteBreeds(favouriteBreeds.map(\.local))
+        } catch {
+            errorMessage = "Failed to remove breed from favourites. Please try again"
+            showAlert = true
+        }
     }
 }
 

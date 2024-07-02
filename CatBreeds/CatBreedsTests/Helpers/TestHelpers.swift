@@ -7,6 +7,7 @@
 
 @testable import CatBreeds
 import Foundation
+import Storage
 
 func makeCatBreed(
     referenceImageId: String? = "referenceImageId",
@@ -28,6 +29,31 @@ func makeFavouriteBreed(
     imageId: String
 ) -> FavouriteBreed {
     FavouriteBreed(
+        id: 1,
+        imageId: imageId,
+        image: nil
+    )
+}
+
+func makeLocalCatBreed(
+    referenceImageId: String? = "referenceImageId"
+) -> LocalCatBreed {
+    LocalCatBreed(
+        id: "id",
+        name: "name",
+        origin: "origin",
+        temperament: "temperament",
+        description: "description",
+        referenceImageId: referenceImageId,
+        lifeSpan: "lifeSpan",
+        page: 1
+    )
+}
+
+func makeLocalFavouriteBreed(
+    imageId: String = "imageId"
+) -> LocalFavouriteBreed {
+    LocalFavouriteBreed(
         id: 1,
         imageId: imageId,
         image: nil

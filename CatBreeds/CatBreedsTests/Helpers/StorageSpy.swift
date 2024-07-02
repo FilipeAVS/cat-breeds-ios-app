@@ -10,25 +10,22 @@ import Storage
 import SwiftData
 
 final class StorageSpy: StorageType {
-    enum Message: Hashable {
-        case insert([LocalFavouriteBreed])
-        case retrieveFavouriteBreeds
-    }
-
-    private(set) var messages = Set<Message>()
-
     var container: ModelContainer {
         let config = ModelConfiguration(isStoredInMemoryOnly: true)
         return try! ModelContainer(for: LocalFavouriteBreed.self, configurations: config)
     }
 
-    func insert(_ favouriteBreeds: [LocalFavouriteBreed]) {
-        messages.insert(.insert(favouriteBreeds))
+    func insertCatBreeds(_ catBreeds: [LocalCatBreed]) {}
+
+    func insertFavouriteBreeds(_ favouriteBreeds: [LocalFavouriteBreed]) {}
+
+    var retrieveCatBreedsResult: [LocalCatBreed] = []
+    func retrieveCatBreeds(from page: Int) -> [LocalCatBreed] {
+        return retrieveCatBreedsResult
     }
 
     var retrieveFavouriteBreedsResult: [LocalFavouriteBreed] = []
     func retrieveFavouriteBreeds() -> [LocalFavouriteBreed] {
-        messages.insert(.retrieveFavouriteBreeds)
         return retrieveFavouriteBreedsResult
     }
 }
