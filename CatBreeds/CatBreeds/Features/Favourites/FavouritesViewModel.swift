@@ -11,7 +11,7 @@ import SwiftUI
 
 @MainActor
 final class FavouritesViewModel: ObservableObject {
-    private let client: ClientType
+    let client: ClientType
     private let storage: StorageType
     private var currentPage: Int = 0
 
@@ -34,7 +34,7 @@ final class FavouritesViewModel: ObservableObject {
         if breeds.isEmpty {
             return ""
         }
-        
+
         let averageLifeSpan = breeds.map(\.averageLifeSpan).reduce(0, +) / Double(breeds.count)
 
         return String(format: "%.2f", averageLifeSpan)

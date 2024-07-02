@@ -33,13 +33,18 @@ struct FavouritesView: View {
                             Text("Average life span: \(viewModel.averageLifeSpanString)")
                         }
                         LazyVGrid(columns: columns, spacing: 16) {
+                            
                             ForEach(viewModel.breeds) { breed in
-                                CatBreedGridItemView(
-                                    catBreed: breed,
-                                    favouriteBreed: viewModel.favouriteBreeds.first(where: { $0.imageId == breed.referenceImageId }),
-                                    markAsFavourite: { _ in },
-                                    removeFromFavourites: viewModel.removeFromFavourites
-                                )
+                                NavigationLink {
+                                    DetailsView(catBreed: breed, client: viewModel.client)
+                                } label: {
+                                    CatBreedGridItemView(
+                                        catBreed: breed,
+                                        favouriteBreed: viewModel.favouriteBreeds.first(where: { $0.imageId == breed.referenceImageId }),
+                                        markAsFavourite: { _ in },
+                                        removeFromFavourites: viewModel.removeFromFavourites
+                                    )
+                                }
                                 .task {
                                     if breed == viewModel.breeds.last {
                                         await viewModel.loadMoreBreeds()
