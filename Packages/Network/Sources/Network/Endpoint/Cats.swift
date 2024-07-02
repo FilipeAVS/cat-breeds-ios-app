@@ -34,7 +34,7 @@ public enum Cats: Endpoint {
         case let .breeds(page):
             [
                 URLQueryItem(name: "page", value: "\(page)"),
-                URLQueryItem(name: "limit", value: "12")
+                URLQueryItem(name: "limit", value: "10")
             ]
         case let .searchBreeds(searchTerm):
             [URLQueryItem(name: "q", value: searchTerm)]

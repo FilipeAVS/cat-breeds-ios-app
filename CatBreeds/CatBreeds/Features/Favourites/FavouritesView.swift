@@ -29,6 +29,9 @@ struct FavouritesView: View {
                     Text("No favourite breeds found.")
                 } else {
                     ScrollView {
+                        if !viewModel.breeds.isEmpty {
+                            Text("Average life span: \(viewModel.averageLifeSpanString)")
+                        }
                         LazyVGrid(columns: columns, spacing: 16) {
                             ForEach(viewModel.breeds) { breed in
                                 CatBreedGridItemView(
@@ -53,5 +56,14 @@ struct FavouritesView: View {
             }
             .navigationTitle("Favourites")
         }
+        .alert(
+            "Something went wrong",
+            isPresented: $viewModel.showAlert,
+            actions: {
+                Button("OK", role: .cancel) {}
+            }, message: {
+                Text(viewModel.errorMessage ?? "")
+            }
+        )
     }
 }

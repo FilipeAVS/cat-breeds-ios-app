@@ -19,6 +19,12 @@ struct CatBreed: Decodable, Identifiable, Equatable {
     let image: BreedImage?
 }
 
+extension CatBreed {
+    var averageLifeSpan: Double {
+        lifeSpan.split(separator: " - ").compactMap(Double.init).reduce(0, +) / 2
+    }
+}
+
 struct BreedImage: Decodable, Equatable {
     let url: URL
 

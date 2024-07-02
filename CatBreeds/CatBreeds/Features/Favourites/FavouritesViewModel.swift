@@ -19,8 +19,25 @@ final class FavouritesViewModel: ObservableObject {
     @Published private(set) var isLoading = true
     @Published private(set) var favouriteBreeds: [FavouriteBreed] = []
 
+    @Published var showAlert: Bool = false
+    @Published private(set) var errorMessage: String?
+
     var breeds: [CatBreed] {
-        catBreeds.filter { breed in favouriteBreeds.contains(where: { $0.imageId == breed.referenceImageId }) }
+        catBreeds.filter { breed in
+            favouriteBreeds.contains(where: { favouriteBreed in
+                favouriteBreed.imageId == breed.referenceImageId
+            })
+        }
+    }
+
+    var averageLifeSpanString: String {
+        if breeds.isEmpty {
+            return ""
+        }
+        
+        let averageLifeSpan = breeds.map(\.averageLifeSpan).reduce(0, +) / Double(breeds.count)
+
+        return String(format: "%.2f", averageLifeSpan)
     }
 
     init(client: ClientType, storage: StorageType) {
@@ -29,7 +46,7 @@ final class FavouritesViewModel: ObservableObject {
     }
 
     func loadBreeds() async {
-        guard currentPage == 0 else {
+        guard isLoading else {
             do {
                 favouriteBreeds = try await client.get(endpoint: Cats.favouriteBreeds)
                 storage.insert(favouriteBreeds.map(\.local))
@@ -38,6 +55,8 @@ final class FavouritesViewModel: ObservableObject {
             }
             return
         }
+
+        currentPage = 0
 
         do {
             async let catBreedsRequest: [CatBreed] = client.get(endpoint: Cats.breeds(page: currentPage))
@@ -64,6 +83,10 @@ final class FavouritesViewModel: ObservableObject {
             self.catBreeds += catBreeds
             self.favouriteBreeds = favouriteBreeds
         } catch {}
+
+        if catBreeds.count < favouriteBreeds.count {
+            await loadMoreBreeds()
+        }
     }
 
     func removeFromFavourites(favouriteBreed: FavouriteBreed) async {
@@ -72,6 +95,9 @@ final class FavouritesViewModel: ObservableObject {
 
             favouriteBreeds = try await client.get(endpoint: Cats.favouriteBreeds)
             storage.insert(favouriteBreeds.map(\.local))
-        } catch {}
+        } catch {
+            errorMessage = "Failed to remove breed from favourites. Please try again"
+            showAlert = true
+        }
     }
 }

@@ -1,8 +1,8 @@
 //
-//  TestHelpers.swift
+//  ThreadSafeResult.swift
 //  CatBreedsTests
 //
-//  Created by Filipe Santos on 01/07/2024.
+//  Created by Filipe Santos on 02/07/2024.
 //
 
 import Foundation
@@ -22,8 +22,4 @@ final class ThreadSafeResult<T> {
             results.append(result)
         }
     }
-}
-
-public func anyError() -> Error {
-    return NSError(domain: "", code: 0)
 }

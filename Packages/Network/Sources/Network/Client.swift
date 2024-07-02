@@ -82,6 +82,7 @@ public protocol ClientType {
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod
         request.setValue(apiKey, forHTTPHeaderField: "x-api-key")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 
         if let body = endpoint.bodyValue {
             let encoder = JSONEncoder()
@@ -89,7 +90,6 @@ public protocol ClientType {
             do {
                 let jsonData = try encoder.encode(body)
                 request.httpBody = jsonData
-                request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             } catch {}
         }
 
